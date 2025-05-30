@@ -14,28 +14,46 @@ import androidx.compose.ui.platform.LocalContext
 private val DarkColorScheme = darkColorScheme(
     primary = Black900,
     secondary = Black900,
-    tertiary = Black900,
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
+    tertiary = Color.Black,
+
     onPrimary = Color.White,
     onSecondary = Black500,
     onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F)
+    background = Black900,
+    onBackground = Color.White,
+
+    //Navigation Bar
+    surface = Black900,
+    onSurface = Color.White,
+    secondaryContainer = Black900,
+    onSecondaryContainer = Color.White,
+    onSurfaceVariant = Black500,
+
+    // FAB
+    primaryContainer = Black500,
+    onPrimaryContainer = Color.White
 )
 
 private val LightColorScheme = lightColorScheme(
     primary = Color.White,
     secondary = Color.White,
     tertiary = Color.White,
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
     onPrimary = Black900,
     onSecondary = Black500,
-    onTertiary = Black900,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
+    onTertiary = Color.Black,
+    background = Color.White,
+    onBackground = Color(0xFF000000),
 
+    //Navigation Bar
+    surface = Color.White,
+    onSurface = Black900,
+    secondaryContainer = Color.White,
+    onSecondaryContainer = Black900,
+    onSurfaceVariant = Black500,
+
+    // FAB
+    primaryContainer = Color.White,
+    onPrimaryContainer = Black900
 )
 
 @Composable
