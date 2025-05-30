@@ -32,7 +32,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun MainScreen() {
 
-    val snackBarHostState = SnackbarHostState()
+    val snackBarHostState = remember { SnackbarHostState() }
     val fabVisibilityState = remember { mutableStateOf(true) }
     val scope = rememberCoroutineScope()
     Scaffold(
