@@ -34,7 +34,10 @@ import com.smorzhok.vknewsclient.domain.StatisticType
 fun VkNewsClientCard(
     modifier: Modifier = Modifier,
     feedPost: FeedPost,
-    onClickListener: (StatisticItem) -> Unit
+    onLikeClickListener: (StatisticItem) -> Unit,
+    onCommentClickListener: (StatisticItem) -> Unit,
+    onRepostClickListener: (StatisticItem) -> Unit,
+    onViewsClickListener: (StatisticItem) -> Unit
 ) {
 
     Card(modifier = modifier) {
@@ -55,18 +58,30 @@ fun VkNewsClientCard(
                 .height(50.dp),
             contentScale = ContentScale.FillWidth
         )
-        Statistics(feedPost.statistics, onClickListener)
+        Statistics(
+            feedPost.statistics,
+            onLikeClickListener,
+            onCommentClickListener,
+            onRepostClickListener,
+            onViewsClickListener
+        )
     }
 }
 
 @Composable
-fun Statistics(statistics: List<StatisticItem>, onClickListener: (StatisticItem) -> Unit) {
+fun Statistics(
+    statistics: List<StatisticItem>,
+    onLikeClickListener: (StatisticItem) -> Unit,
+    onCommentClickListener: (StatisticItem) -> Unit,
+    onRepostClickListener: (StatisticItem) -> Unit,
+    onViewsClickListener: (StatisticItem) -> Unit
+) {
     Row(
         modifier = Modifier.padding(8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         val viewsItem = statistics.getItemByType(StatisticType.VIEWS)
-        IconWithText(icon = R.drawable.ic_eye, viewsItem.count, { onClickListener(viewsItem) })
+        IconWithText(icon = R.drawable.ic_eye, viewsItem.count, { onViewsClickListener(viewsItem) })
 
         Spacer(modifier = Modifier.weight(1f))
 
@@ -74,16 +89,19 @@ fun Statistics(statistics: List<StatisticItem>, onClickListener: (StatisticItem)
         IconWithText(
             icon = R.drawable.ic_arrow_outward,
             repostsItem.count,
-            { onClickListener(repostsItem) })
+            { onRepostClickListener(repostsItem) })
 
         val commentsItem = statistics.getItemByType(StatisticType.COMMENTS)
         IconWithText(
             icon = R.drawable.comment,
             commentsItem.count,
-            { onClickListener(commentsItem) })
+            { onCommentClickListener(commentsItem) })
 
         val likesItem = statistics.getItemByType(StatisticType.LIKES)
-        IconWithText(icon = R.drawable.favorite, likesItem.count, { onClickListener(likesItem) })
+        IconWithText(
+            icon = R.drawable.favorite,
+            likesItem.count,
+            { onLikeClickListener(likesItem) })
     }
 }
 

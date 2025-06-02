@@ -10,23 +10,20 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.smorzhok.vknewsclient.MainViewModel
 import com.smorzhok.vknewsclient.domain.FeedPost
 
 @SuppressLint("UnrememberedMutableState")
-@Preview
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen() {
-    val feedPost = remember {
-        mutableStateOf(FeedPost())
-    }
+fun MainScreen(viewModel: MainViewModel) {
+
     Scaffold(
         bottomBar = {
             BottomAppBar(containerColor = MaterialTheme.colorScheme.surface) {
@@ -58,19 +55,14 @@ fun MainScreen() {
             }
         }) {
         it
+        val feedPost = viewModel.feedPost.observeAsState(FeedPost())
         VkNewsClientCard(
             modifier = Modifier.padding(8.dp),
             feedPost = feedPost.value,
-            onClickListener = { newItem ->
-                val newStatistics = feedPost.value.statistics.map { oldItem ->
-                    if (oldItem.type == newItem.type) {
-                        oldItem.copy(count = oldItem.count + 1)
-                    } else {
-                        oldItem
-                    }
-                }
-                feedPost.value = feedPost.value.copy(statistics = newStatistics)
-            }
+            onLikeClickListener = viewModel::updateCount,
+            onCommentClickListener =  viewModel::updateCount,
+            onRepostClickListener =  viewModel::updateCount,
+            onViewsClickListener =  viewModel::updateCount,
         )
 
     }
