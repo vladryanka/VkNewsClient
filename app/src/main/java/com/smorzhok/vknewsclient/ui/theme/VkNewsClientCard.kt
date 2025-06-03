@@ -143,7 +143,7 @@ fun PostHeader(feedPost: FeedPost) {
         )
         Spacer(modifier = Modifier.width(8.dp))
         Column(modifier = Modifier.weight(1f)) {
-            Text(text = feedPost.commutityName, color = MaterialTheme.colorScheme.onPrimary)
+            Text(text = feedPost.communityName, color = MaterialTheme.colorScheme.onPrimary)
             Text(text = "14:00", color = MaterialTheme.colorScheme.onSecondary)
         }
         Icon(
