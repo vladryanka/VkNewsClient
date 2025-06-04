@@ -12,7 +12,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -20,17 +19,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
 import com.smorzhok.vknewsclient.MainViewModel
+import com.smorzhok.vknewsclient.navigation.AppNavGraph
 
 @SuppressLint("UnrememberedMutableState")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(viewModel: MainViewModel) {
-    val selectedNavItem by viewModel.selectedNavItem.observeAsState(NavigationItem.Home)
+    val navController = rememberNavController()
     Scaffold(
         bottomBar = {
             BottomAppBar(containerColor = MaterialTheme.colorScheme.surface) {
-
+                val navBackStackEntry by navController.currentBackStackEntryAsState()
+                val currentRout = navBackStackEntry?.destination?.route
                 val items = listOf<NavigationItem>(
                     NavigationItem.Home,
                     NavigationItem.Favourites,
@@ -38,9 +41,9 @@ fun MainScreen(viewModel: MainViewModel) {
                 )
                 items.forEach { item ->
                     NavigationBarItem(
-                        selected = selectedNavItem == item,
+                        selected = currentRout == item.screen.route,
                         onClick = {
-                            viewModel.changeNavItem(item)
+                            navController.navigate(item.screen.route)
                         },
                         icon = {
                             Icon(
@@ -57,27 +60,26 @@ fun MainScreen(viewModel: MainViewModel) {
                 }
             }
         }) {
-        when(selectedNavItem){
-            NavigationItem.Home -> {
-                HomeScreen(it, viewModel)
-            }
-            NavigationItem.Profile -> {
-                TextCounter("Profile")
-            }
-            NavigationItem.Favourites -> {
-                TextCounter("Favourites")
-            }
-        }
+        AppNavGraph(
+            navController,
+            { HomeScreen(it, viewModel) },
+            { TextCounter("Profile") },
+            { TextCounter("Favourites") }
+        )
     }
 
 }
 
 @Composable
-private fun TextCounter(name: String){
+private fun TextCounter(name: String) {
     var count by remember {
         mutableIntStateOf(0)
     }
-    Text("$name. Count: $count", modifier = Modifier.padding(50.dp).clickable{
-        count++
-    }, color = Color.Black)
+    Text(
+        "$name. Count: $count", modifier = Modifier
+            .padding(50.dp)
+            .clickable {
+                count++
+            }, color = Color.Black
+    )
 }
