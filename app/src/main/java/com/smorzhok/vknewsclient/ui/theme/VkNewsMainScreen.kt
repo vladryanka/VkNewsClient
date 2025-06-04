@@ -20,20 +20,21 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
 import com.smorzhok.vknewsclient.MainViewModel
 import com.smorzhok.vknewsclient.navigation.AppNavGraph
-import com.smorzhok.vknewsclient.navigation.Screen
+import com.smorzhok.vknewsclient.navigation.rememberNavigationState
 
 @SuppressLint("UnrememberedMutableState")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(viewModel: MainViewModel) {
-    val navController = rememberNavController()
+
+    val navState = rememberNavigationState()
+
     Scaffold(
         bottomBar = {
             BottomAppBar(containerColor = MaterialTheme.colorScheme.surface) {
-                val navBackStackEntry by navController.currentBackStackEntryAsState()
+                val navBackStackEntry by navState.navHostController.currentBackStackEntryAsState()
                 val currentRout = navBackStackEntry?.destination?.route
                 val items = listOf<NavigationItem>(
                     NavigationItem.Home,
@@ -44,13 +45,7 @@ fun MainScreen(viewModel: MainViewModel) {
                     NavigationBarItem(
                         selected = currentRout == item.screen.route,
                         onClick = {
-                            navController.navigate(item.screen.route){
-                                launchSingleTop = true
-                                popUpTo(Screen.NewsFeed.route){
-                                    saveState = true
-                                }
-                                restoreState = true
-                            }
+                            navState.navigateTo(item.screen.route)
                         },
                         icon = {
                             Icon(
@@ -68,7 +63,7 @@ fun MainScreen(viewModel: MainViewModel) {
             }
         }) {
         AppNavGraph(
-            navController,
+            navState.navHostController,
             { HomeScreen(it, viewModel) },
             { TextCounter("Profile") },
             { TextCounter("Favourites") }
