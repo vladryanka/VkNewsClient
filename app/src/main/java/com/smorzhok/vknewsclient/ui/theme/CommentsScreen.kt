@@ -23,30 +23,17 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.smorzhok.vknewsclient.domain.FeedPost
 import com.smorzhok.vknewsclient.domain.PostComment
 
-@Preview
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CommentsScreen(
-    feedPost: FeedPost = FeedPost(id = 0),
-    comments: List<PostComment> = listOf(
-        PostComment(1),
-        PostComment(2),
-        PostComment(3),
-        PostComment(4),
-        PostComment(5),
-        PostComment(6),
-        PostComment(7),
-        PostComment(8),
-        PostComment(9),
-        PostComment(10),
-        PostComment(11)
-    )
+    feedPost: FeedPost,
+    comments: List<PostComment>,
+    onBackPressed: () -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -59,7 +46,7 @@ fun CommentsScreen(
                 },
                 navigationIcon = {
                     IconButton(onClick = {
-
+                        onBackPressed()
                     }) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null)
 

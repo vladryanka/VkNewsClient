@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.smorzhok.vknewsclient"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.smorzhok.vknewsclient"
