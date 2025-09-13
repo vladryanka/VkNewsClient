@@ -1,6 +1,5 @@
 package com.smorzhok.vknewsclient.ui.theme
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -23,32 +22,25 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.smorzhok.vknewsclient.MainViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.smorzhok.vknewsclient.NewsFeedViewModel
 import com.smorzhok.vknewsclient.domain.FeedPost
 
 @Composable
 fun HomeScreen(
     paddingValues: PaddingValues,
-    viewModel: MainViewModel
+    onCommentClicked: (FeedPost) -> Unit
 ) {
-    val screenState = viewModel.screenState.observeAsState(HomeScreenState.Initial)
+    val viewModel: NewsFeedViewModel = viewModel()
+    val screenState = viewModel.screenState.observeAsState(NewsFeedScreenState.Initial)
     val currentState = screenState.value
 
     when (currentState) {
-        is HomeScreenState.Posts -> {
-            FeedPostsScreen(paddingValues, currentState.posts, viewModel)
+        is NewsFeedScreenState.Posts -> {
+            FeedPostsScreen(paddingValues, currentState.posts, viewModel, onCommentClicked)
         }
 
-        is HomeScreenState.Comments -> {
-            CommentsScreen(currentState.feedPost, currentState.comments, {
-                viewModel.closeComments()
-            })
-            BackHandler {
-                viewModel.closeComments()
-            }
-        }
-
-        is HomeScreenState.Initial -> {}
+        is NewsFeedScreenState.Initial -> {}
     }
 
 }
@@ -58,7 +50,8 @@ fun HomeScreen(
 fun FeedPostsScreen(
     paddingValues: PaddingValues,
     posts: List<FeedPost>,
-    viewModel: MainViewModel
+    viewModel: NewsFeedViewModel,
+    onCommentClicked: (FeedPost) -> Unit
 ) {
     LazyColumn(
         contentPadding = PaddingValues(
@@ -112,7 +105,7 @@ fun FeedPostsScreen(
                         viewModel.updateCount(statisticsItem, feedPost)
                     },
                     onCommentClickListener = {
-                        viewModel.showComment(feedPost)
+                        onCommentClicked(feedPost)
                     },
                     onRepostClickListener = { statisticsItem ->
                         viewModel.updateCount(statisticsItem, feedPost)
