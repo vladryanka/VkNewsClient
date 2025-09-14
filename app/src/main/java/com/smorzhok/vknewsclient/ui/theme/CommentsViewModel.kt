@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.smorzhok.vknewsclient.domain.FeedPost
 import com.smorzhok.vknewsclient.domain.PostComment
 
-class CommentsViewModel() : ViewModel() {
+class CommentsViewModel(feedPost: FeedPost) : ViewModel() {
     private val comments = mutableListOf<PostComment>().apply {
         repeat(10) {
             add(PostComment(it))

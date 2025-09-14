@@ -74,7 +74,7 @@ fun MainScreen() {
                 if (commentsToPost.value == null) HomeScreen(it, {
                     commentsToPost.value = it
                 }) else {
-                    CommentsScreen { commentsToPost.value = null}
+                    CommentsScreen(commentsToPost.value!!) { commentsToPost.value = null}
                 }
             },
             { TextCounter("Profile") },

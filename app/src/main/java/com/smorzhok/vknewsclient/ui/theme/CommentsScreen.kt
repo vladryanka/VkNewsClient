@@ -34,13 +34,14 @@ import com.smorzhok.vknewsclient.domain.PostComment
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CommentsScreen(
+    feedPost: FeedPost,
     onBackPressed: () -> Unit
 ) {
 
-    val viewModel: CommentsViewModel = viewModel()
+    val viewModel: CommentsViewModel = viewModel( factory = CommentsViewModelFactory(feedPost))
 
     LaunchedEffect(viewModel) {
-        viewModel.loadComments(FeedPost(1))
+        viewModel.loadComments(feedPost)
     }
 
     val screenState = viewModel.screenState.observeAsState(CommentsScreenState.Initial)
