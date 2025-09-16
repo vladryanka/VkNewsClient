@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.smorzhok.vknewsclient.domain.FeedPost
 import com.smorzhok.vknewsclient.navigation.AppNavGraph
+import com.smorzhok.vknewsclient.navigation.Screen
 import com.smorzhok.vknewsclient.navigation.rememberNavigationState
 
 @SuppressLint("UnrememberedMutableState")
@@ -71,14 +72,15 @@ fun MainScreen() {
         AppNavGraph(
             navState.navHostController,
             {
-                if (commentsToPost.value == null) HomeScreen(it, {
+                HomeScreen(it,{
                     commentsToPost.value = it
-                }) else {
-                    CommentsScreen(commentsToPost.value!!) { commentsToPost.value = null}
-                }
+                    navState.navigateTo(Screen.Comments.route)
+                })
             },
-            { TextCounter("Profile") },
-            { TextCounter("Favourites") }
+            commentsScreenContent = {CommentsScreen(commentsToPost.value!!) { commentsToPost.value = null}},
+            profileScreenContent = { TextCounter("Profile") },
+            favouriteScreenContent = { TextCounter("Favourites") },
+
         )
     }
 
