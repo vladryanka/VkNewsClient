@@ -22,10 +22,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.smorzhok.vknewsclient.domain.FeedPost
 import com.smorzhok.vknewsclient.navigation.AppNavGraph
-import com.smorzhok.vknewsclient.navigation.Screen
 import com.smorzhok.vknewsclient.navigation.rememberNavigationState
 
 @SuppressLint("UnrememberedMutableState")
@@ -42,17 +42,21 @@ fun MainScreen() {
         bottomBar = {
             BottomAppBar(containerColor = MaterialTheme.colorScheme.surface) {
                 val navBackStackEntry by navState.navHostController.currentBackStackEntryAsState()
-                val currentRout = navBackStackEntry?.destination?.route
+
                 val items = listOf(
                     NavigationItem.Home,
                     NavigationItem.Favourites,
                     NavigationItem.Profile
                 )
                 items.forEach { item ->
+                    val selected = navBackStackEntry?.destination?.hierarchy?.any {
+                        it.route == item.screen.route
+                    } ?: false
                     NavigationBarItem(
-                        selected = currentRout == item.screen.route,
+                        selected = selected,
                         onClick = {
-                            navState.navigateTo(item.screen.route)
+                            if (!selected)
+                                navState.navigateTo(item.screen.route)
                         },
                         icon = {
                             Icon(
@@ -72,16 +76,16 @@ fun MainScreen() {
         AppNavGraph(
             navState.navHostController,
             {
-                HomeScreen(it,{
+                HomeScreen(it, {
                     commentsToPost.value = it
-                    navState.navigateTo(Screen.Comments.route)
+                    navState.navigateToComments()
                 })
             },
-            commentsScreenContent = {CommentsScreen(commentsToPost.value!!) { commentsToPost.value = null}},
+            commentsScreenContent = { CommentsScreen(commentsToPost.value!!) { navState.navHostController.popBackStack() } },
             profileScreenContent = { TextCounter("Profile") },
             favouriteScreenContent = { TextCounter("Favourites") },
 
-        )
+            )
     }
 
 }
