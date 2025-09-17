@@ -33,9 +33,6 @@ import com.smorzhok.vknewsclient.navigation.rememberNavigationState
 @Composable
 fun MainScreen() {
 
-    val commentsToPost: MutableState<FeedPost?> = remember {
-        mutableStateOf(null)
-    }
     val navState = rememberNavigationState()
 
     Scaffold(
@@ -77,11 +74,12 @@ fun MainScreen() {
             navState.navHostController,
             {
                 HomeScreen(it, {
-                    commentsToPost.value = it
-                    navState.navigateToComments()
+                    navState.navigateToComments(feedPost = FeedPost(id = it.id))
                 })
             },
-            commentsScreenContent = { CommentsScreen(commentsToPost.value!!) { navState.navHostController.popBackStack() } },
+            commentsScreenContent = {
+                feedPost ->
+                CommentsScreen(feedPost) { navState.navHostController.popBackStack() } },
             profileScreenContent = { TextCounter("Profile") },
             favouriteScreenContent = { TextCounter("Favourites") },
 
