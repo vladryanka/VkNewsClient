@@ -23,7 +23,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.smorzhok.vknewsclient.R
 import com.smorzhok.vknewsclient.domain.FeedPost
@@ -47,7 +46,7 @@ fun VkNewsClientCard(
                 .padding(8.dp)
                 .fillMaxWidth(),
             color = MaterialTheme.colorScheme.onPrimary,
-            text = stringResource(feedPost.postText)
+            text = feedPost.postText
         )
         Image(
             painter = painterResource(feedPost.postImage),

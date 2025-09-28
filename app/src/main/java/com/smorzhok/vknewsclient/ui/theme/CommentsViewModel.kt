@@ -9,7 +9,8 @@ import com.smorzhok.vknewsclient.domain.PostComment
 class CommentsViewModel(feedPost: FeedPost) : ViewModel() {
     private val comments = mutableListOf<PostComment>().apply {
         repeat(10) {
-            add(PostComment(it))
+            add(PostComment(it,
+                commentText = "content $it"))
         }
     }
 
