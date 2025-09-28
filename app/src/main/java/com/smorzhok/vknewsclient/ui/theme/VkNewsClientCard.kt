@@ -11,8 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -146,7 +144,7 @@ fun PostHeader(feedPost: FeedPost) {
             Text(text = "14:00", color = MaterialTheme.colorScheme.onSecondary)
         }
         Icon(
-            imageVector = Icons.Rounded.MoreVert,
+            painterResource(R.drawable.more_vert),
             contentDescription = null,
             tint = MaterialTheme.colorScheme.onSecondary
         )

@@ -11,15 +11,13 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -57,8 +55,9 @@ fun MainScreen() {
                         },
                         icon = {
                             Icon(
-                                item.icon,
-                                contentDescription = null
+                                painterResource(item.icon),
+                                contentDescription = null,
+                                tint = Color.Black
                             )
                         },
                         label = {
@@ -77,9 +76,9 @@ fun MainScreen() {
                     navState.navigateToComments(feedPost = FeedPost(id = it.id))
                 })
             },
-            commentsScreenContent = {
-                feedPost ->
-                CommentsScreen(feedPost) { navState.navHostController.popBackStack() } },
+            commentsScreenContent = { feedPost ->
+                CommentsScreen(feedPost) { navState.navHostController.popBackStack() }
+            },
             profileScreenContent = { TextCounter("Profile") },
             favouriteScreenContent = { TextCounter("Favourites") },
 

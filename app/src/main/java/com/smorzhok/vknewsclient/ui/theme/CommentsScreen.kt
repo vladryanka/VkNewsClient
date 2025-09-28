@@ -11,8 +11,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -24,10 +22,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.smorzhok.vknewsclient.R
 import com.smorzhok.vknewsclient.domain.FeedPost
 import com.smorzhok.vknewsclient.domain.PostComment
 
@@ -38,7 +38,7 @@ fun CommentsScreen(
     onBackPressed: () -> Unit
 ) {
 
-    val viewModel: CommentsViewModel = viewModel( factory = CommentsViewModelFactory(feedPost))
+    val viewModel: CommentsViewModel = viewModel(factory = CommentsViewModelFactory(feedPost))
 
     LaunchedEffect(viewModel) {
         viewModel.loadComments(feedPost)
@@ -46,7 +46,7 @@ fun CommentsScreen(
 
     val screenState = viewModel.screenState.observeAsState(CommentsScreenState.Initial)
     val currentState = screenState.value
-    if (currentState is CommentsScreenState.Comments ) {
+    if (currentState is CommentsScreenState.Comments) {
         Scaffold(
             topBar = {
                 TopAppBar(
@@ -60,7 +60,10 @@ fun CommentsScreen(
                         IconButton(onClick = {
                             onBackPressed()
                         }) {
-                            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null)
+                            Icon(
+                                painterResource(R.drawable.arrow_back), contentDescription = null,
+                                tint = Color.Black
+                            )
                         }
                     }
                 )
