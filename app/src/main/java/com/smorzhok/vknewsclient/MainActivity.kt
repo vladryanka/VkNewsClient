@@ -6,7 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.smorzhok.vknewsclient.ui.theme.MainScreen
+import com.smorzhok.vknewsclient.ui.theme.ActivityResultScreen
 import com.smorzhok.vknewsclient.ui.theme.VkNewsClientTheme
 
 class MainActivity : ComponentActivity() {
@@ -16,7 +16,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             VkNewsClientTheme {
-                MainScreen()
+                ActivityResultScreen()
             }
         }
     }
