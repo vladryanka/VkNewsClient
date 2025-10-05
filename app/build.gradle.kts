@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     id("kotlin-parcelize")
+    alias(libs.plugins.ksp)
+
 }
 
 android {
@@ -51,6 +53,14 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.runtime.livedata)
+    implementation(libs.vk.core)
+    implementation(libs.vk.api)
+    implementation(libs.retrofit)
+    implementation(libs.okHttpClient)
+    implementation(libs.httpLoggingInterceptor)
+    implementation(libs.dagger2)
+    ksp(libs.dagger2.compiler)
+    ksp(libs.dagger2.android.processor)
     implementation(libs.gson)
     implementation(libs.coil.compose)
     implementation(libs.androidx.navigation.compose)

@@ -12,6 +12,12 @@ activityCompose = "1.11.0"
 composeBom = "2025.09.01"
 navigationCompose = "2.9.5"
 runtimeLivedata = "1.9.2"
+vk_version = "4.1.0"
+okHttpClient_version = "5.1.0"
+retrofit_version="3.0.0"
+
+ksp_version ="2.1.10-1.0.29"
+dagger2_version = "2.57.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -27,14 +33,33 @@ androidx-activity-compose = { group = "androidx.activity", name = "activity-comp
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
 androidx-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+#VK базовая функциональность
+vk-core = { group = "com.vk", name = "android-sdk-core", version.ref = "vk_version" }
+#VK сгенерированные модели и методы
+vk-api = { group = "com.vk", name = "android-sdk-api", version.ref = "vk_version" }
 androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+#OkHttpClient
+okHttpClient = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okHttpClient_version" }
+#HttpLoggingInterceptor
+httpLoggingInterceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okHttpClient_version" }
+
+#Retrofit
+retrofit = {group = "com.squareup.retrofit2", name = "retrofit", version.ref ="retrofit_version"}
+
+#Dagger2
+dagger2 = { group = "com.google.dagger", name = "dagger", version.ref = "dagger2_version" }
+#Dagger2 кодогенратор
+dagger2-compiler = { group = "com.google.dagger", name = "dagger-compiler", version.ref = "dagger2_version" }
+#Dagger2 аннотации
+dagger2-android-processor = { group = "com.google.dagger", name = "dagger-android-processor", version.ref = "dagger2_version" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+ksp = {id = "com.google.devtools.ksp", version.ref ="ksp_version"}
 
