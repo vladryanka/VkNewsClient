@@ -6,13 +6,18 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
-import com.smorzhok.vknewsclient.ui.theme.ActivityResultScreen
 import com.smorzhok.vknewsclient.ui.theme.VkNewsClientTheme
 import com.vk.api.sdk.VK
 import com.vk.api.sdk.auth.VKAuthenticationResult
-import com.vk.api.sdk.auth.VKScope
+import kotlinx.coroutines.delay
 
 class MainActivity : ComponentActivity() {
 
@@ -21,22 +26,33 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             VkNewsClientTheme {
+                val someState = remember {
+                    mutableStateOf(true)
+                }
 
-                val launcher = rememberLauncherForActivityResult(contract = VK.getVKAuthActivityResultContract()) {
+                Log.d("MainActivity", "Recomposition: ${someState.value}")
+                rememberLauncherForActivityResult(
+                    contract = VK.getVKAuthActivityResultContract()
+                ) {
                     when (it) {
                         is VKAuthenticationResult.Success -> {
-                            Log.d("Doing", "Success")
+                            Log.d("MainActivity", "Success auth")
                         }
-
                         is VKAuthenticationResult.Failed -> {
-                            Log.d("Doing", "Failed")
+                            Log.d("MainActivity", "Failed auth")
                         }
                     }
                 }
-
-
-                launcher.launch(listOf<VKScope>(VKScope.WALL))
-                ActivityResultScreen()
+                LaunchedEffect(key1 = someState.value) {
+                    Log.d("MainActivity", "LaunchedEffect")
+                    delay(100)
+                }
+                SideEffect {
+                    Log.d("MainActivity", "SideEffect")
+                }
+                Button(onClick = { someState.value = !someState.value }) {
+                    Text(text = "Change state")
+                }
             }
         }
     }
