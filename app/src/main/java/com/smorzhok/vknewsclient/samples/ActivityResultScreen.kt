@@ -1,4 +1,4 @@
-package com.smorzhok.vknewsclient.ui.theme
+package com.smorzhok.vknewsclient.samples
 
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult

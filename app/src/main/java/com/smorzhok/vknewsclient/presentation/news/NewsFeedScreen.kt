@@ -1,4 +1,4 @@
-package com.smorzhok.vknewsclient.ui.theme
+package com.smorzhok.vknewsclient.presentation.news
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -23,11 +23,10 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.smorzhok.vknewsclient.NewsFeedViewModel
 import com.smorzhok.vknewsclient.domain.FeedPost
 
 @Composable
-fun HomeScreen(
+fun NewsFeedScreen(
     paddingValues: PaddingValues,
     onCommentClicked: (FeedPost) -> Unit
 ) {

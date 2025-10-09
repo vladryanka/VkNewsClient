@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     id("kotlin-parcelize")
     alias(libs.plugins.ksp)
+    id("vkid.manifest.placeholders")
 
 }
 
@@ -19,6 +20,13 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        manifestPlaceholders += mapOf(
+            "VKIDClientID" to "54209214",
+            "VKIDClientSecret" to "831JdhEDfZ3Sy06t7C5q",
+            "VKIDRedirectHost" to "vk.ru",
+            "VKIDRedirectScheme" to "vk54209214"
+        )
     }
 
     buildTypes {
@@ -53,17 +61,16 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.runtime.livedata)
-    implementation(libs.vk.core)
     implementation(libs.vk.api)
     implementation(libs.retrofit)
-    implementation(libs.okHttpClient)
-    implementation(libs.httpLoggingInterceptor)
     implementation(libs.dagger2)
     ksp(libs.dagger2.compiler)
-    ksp(libs.dagger2.android.processor)
     implementation(libs.gson)
     implementation(libs.coil.compose)
     implementation(libs.androidx.navigation.compose)
+    implementation("com.vk.id:vkid:2.5.1")
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

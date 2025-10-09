@@ -1,4 +1,4 @@
-package com.smorzhok.vknewsclient.ui.theme
+package com.smorzhok.vknewsclient.presentation.comments
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column

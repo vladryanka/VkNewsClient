@@ -1,11 +1,10 @@
-package com.smorzhok.vknewsclient
+package com.smorzhok.vknewsclient.presentation.news
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.smorzhok.vknewsclient.domain.FeedPost
 import com.smorzhok.vknewsclient.domain.StatisticItem
-import com.smorzhok.vknewsclient.ui.theme.NewsFeedScreenState
 
 class NewsFeedViewModel : ViewModel() {
     private val initialList = mutableListOf<FeedPost>().apply {

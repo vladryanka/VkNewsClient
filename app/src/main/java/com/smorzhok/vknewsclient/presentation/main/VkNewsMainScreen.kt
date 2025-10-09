@@ -1,4 +1,4 @@
-package com.smorzhok.vknewsclient.ui.theme
+package com.smorzhok.vknewsclient.presentation.main
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.clickable
@@ -25,6 +25,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.smorzhok.vknewsclient.domain.FeedPost
 import com.smorzhok.vknewsclient.navigation.AppNavGraph
 import com.smorzhok.vknewsclient.navigation.rememberNavigationState
+import com.smorzhok.vknewsclient.presentation.comments.CommentsScreen
+import com.smorzhok.vknewsclient.presentation.news.NewsFeedScreen
 
 @SuppressLint("UnrememberedMutableState")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -72,7 +74,7 @@ fun MainScreen() {
         AppNavGraph(
             navState.navHostController,
             {
-                HomeScreen(it, {
+                NewsFeedScreen(it, {
                     navState.navigateToComments(feedPost = FeedPost(id = it.id))
                 })
             },

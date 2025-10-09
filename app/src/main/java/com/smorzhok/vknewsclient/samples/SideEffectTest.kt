@@ -1,4 +1,4 @@
-package com.smorzhok.vknewsclient.ui.theme
+package com.smorzhok.vknewsclient.samples
 
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text

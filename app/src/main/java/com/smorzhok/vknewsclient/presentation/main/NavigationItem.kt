@@ -1,4 +1,4 @@
-package com.smorzhok.vknewsclient.ui.theme
+package com.smorzhok.vknewsclient.presentation.main
 
 import com.smorzhok.vknewsclient.R
 import com.smorzhok.vknewsclient.navigation.Screen
